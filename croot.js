@@ -1,15 +1,14 @@
-let wsocket=0;
-
 function openWebSocketSetId(id,url_ws){
   if (window["WebSocket"]) { //check browser support
     connectws(id,url_ws).then(function(server) {
-      wsocket=server;
+      let wsocket=server;
     }).catch(function(err) {
       console.log("socket error");
     });
   } else {
       alert("Please Update Your browser to the latest version.");
   }
+  return wsocket;
 }
 
 function connectws(id,url_ws) {
@@ -36,13 +35,13 @@ function connectws(id,url_ws) {
   });
 }
 
-function closeWebSocket(){
+function closeWebSocket(wsocket){
   if (wsocket !== 0){
     wsocket.close();
   }
 }
 
-function sendMessagetoWebSocket(msg){
+function sendMessagetoWebSocket(msg,wsocket){
   if (wsocket.readyState === WebSocket.OPEN){
     wsocket.send(msg);
   }
