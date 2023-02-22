@@ -1,4 +1,4 @@
-function openWebSocketSetId(id,url_ws){
+export function openWebSocketSetId(id,url_ws){
   if (window["WebSocket"]) { //check browser support
     connectws(id,url_ws).then(function(server) {
       let wsocket=server;
@@ -11,7 +11,7 @@ function openWebSocketSetId(id,url_ws){
   return wsocket;
 }
 
-function connectws(id,url_ws) {
+export function connectws(id,url_ws) {
   return new Promise(function(resolve, reject) {
       let wsconn = new WebSocket(atob(url_ws));
       wsconn.onopen = function() {
@@ -35,13 +35,13 @@ function connectws(id,url_ws) {
   });
 }
 
-function closeWebSocket(wsocket){
+export function closeWebSocket(wsocket){
   if (wsocket !== 0){
     wsocket.close();
   }
 }
 
-function sendMessagetoWebSocket(msg,wsocket){
+export function sendMessagetoWebSocket(msg,wsocket){
   if (wsocket.readyState === WebSocket.OPEN){
     wsocket.send(msg);
   }
